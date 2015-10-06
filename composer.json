@@ -1,0 +1,21 @@
+{
+    "name": "toxygene/peekable-stream-reader-decorator",
+    "description": "Peekable StreamReader Decorator",
+    "authors": [
+        {
+            "name": "Justin Hendrickson",
+            "email": "justin.hendrickson@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Toxygene\\PeekableStreamReaderDecorator\\": "src"
+        }
+    },
+    "require": {
+        "toxygene/stream-reader": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}

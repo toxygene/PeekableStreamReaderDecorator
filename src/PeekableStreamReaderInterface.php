@@ -1,5 +1,7 @@
 <?php
-namespace Toxygene\StreamReader;
+namespace Toxygene\PeekableStreamReaderDecorator;
+
+use Toxygene\StreamReader\StreamReaderInterface;
 
 interface PeekableStreamReaderInterface extends StreamReaderInterface
 {

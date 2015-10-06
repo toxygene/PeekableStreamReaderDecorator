@@ -1,12 +1,14 @@
 <?php
-namespace Toxygene\StreamReader;
+namespace Toxygene\PeekableStreamReaderDecorator;
 
 use SplDoublyLinkedList;
 use SplQueue;
+use Toxygene\StreamReader\AbstractStreamReader;
+use Toxygene\StreamReader\StreamReaderInterface;
 
 /**
- * Class StreamReaderPeekableDecorator
- * @package Toxygene\StreamReader
+ * Class PeekableStreamReaderDecorator
+ * @package Toxygene\PeekableStreamReaderDecorator
  */
 class PeekableStreamReaderDecorator extends AbstractStreamReader implements PeekableStreamReaderInterface
 {

@@ -1,7 +1,7 @@
 <?php
 namespace Toxygene\StreamReader\Tests;
 
-use Toxygene\StreamReader\PeekableStreamReaderDecorator;
+use Toxygene\PeekableStreamReaderDecorator\PeekableStreamReaderDecorator;
 use Toxygene\StreamReader\StreamReader;
 
 /**

@@ -13,6 +13,7 @@
         }
     },
     "require": {
+        "php": ">=5.6",
         "toxygene/stream-reader": "^3.0"
     },
     "require-dev": {

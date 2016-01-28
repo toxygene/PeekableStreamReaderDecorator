@@ -193,7 +193,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
     }
 
     /**
-     * Reset the peek offset
+     * Reset the peek
      *
      * @return $this
      */
@@ -225,27 +225,27 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function peek($count = 1)
     {
-        $advance = max(
+        $lookaheadCount = max(
             0,
             $this->peekOffset + $count - $this->lookahead->count()
         );
 
-        if ($advance > 0) {
-            for ($i = 0; !$this->streamReader->isEmpty() && $i < $advance; ++$i) {
+        if ($lookaheadCount > 0) {
+            for ($i = 0; !$this->streamReader->isEmpty() && $i < $lookaheadCount; ++$i) {
                 $this->lookahead->enqueue(
                     $this->streamReader->readChar()
                 );
             }
         }
 
-        $n = min(
+        $charactersToDequeue = min(
             $this->lookahead->count(),
-            $this->peekOffset + $count
+            $count
         );
 
         $chars = '';
-        for ($i = $this->peekOffset; $i < $n; ++$i) {
-            $char = $this->lookahead[$i];
+        for ($i = 0; $i < $charactersToDequeue; ++$i) {
+            $char = $this->lookahead[$this->peekOffset + $i];
 
             if ($this->peekWasLineReturn) {
                 ++$this->peekLineNumber;
@@ -262,7 +262,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
             $chars .= $char;
         }
 
-        $this->peekOffset = $n;
+        $this->peekOffset += $charactersToDequeue;
 
         return $chars;
     }

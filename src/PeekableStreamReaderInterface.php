@@ -28,19 +28,19 @@ interface PeekableStreamReaderInterface extends StreamReaderInterface
     public function isPeekEmpty();
 
     /**
-     * Read the stream to the peek counter
-     *
-     * @return string
-     */
-    public function readCharsToPeek();
-
-    /**
      * Peek ahead at the stream
      *
      * @param integer $count
      * @return string
      */
     public function peek($count = 1);
+
+    /**
+     * Read the stream to the peek counter
+     *
+     * @return string
+     */
+    public function readCharsToPeek();
 
     /**
      * Reset the peek offset

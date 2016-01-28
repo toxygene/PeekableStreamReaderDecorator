@@ -7,7 +7,7 @@
             "email": "justin.hendrickson@gmail.com"
         }
     ],
-    "lisence": "MIT",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Toxygene\\PeekableStreamReaderDecorator\\": "src"

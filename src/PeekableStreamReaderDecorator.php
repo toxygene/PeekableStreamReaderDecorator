@@ -7,7 +7,10 @@ use Toxygene\StreamReader\AbstractStreamReader;
 use Toxygene\StreamReader\StreamReaderInterface;
 
 /**
- * Class PeekableStreamReaderDecorator
+ * Peekable stream reader decorator
+ *
+ * A stream reader decorator that allows peeking ahead of the stream.
+ *
  * @package Toxygene\PeekableStreamReaderDecorator
  */
 class PeekableStreamReaderDecorator extends AbstractStreamReader implements PeekableStreamReaderInterface
@@ -138,7 +141,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function isEmpty()
     {
-        return $this->lookahead->isEmpty() && $this->streamReader->isEmpty();
+        return $this->isPeekEmpty() && $this->streamReader->isEmpty();
     }
 
     /**
@@ -146,7 +149,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function isPeekEmpty()
     {
-        return $this->streamReader->isEmpty();
+        return $this->lookahead->isEmpty();
     }
 
     /**

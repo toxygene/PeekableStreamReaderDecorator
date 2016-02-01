@@ -141,7 +141,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function isEmpty()
     {
-        return $this->isPeekEmpty() && $this->streamReader->isEmpty();
+        return $this->lookahead->isEmpty() && $this->streamReader->isEmpty();
     }
 
     /**
@@ -149,7 +149,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function isPeekEmpty()
     {
-        return $this->lookahead->isEmpty();
+        return $this->streamReader->isEmpty();
     }
 
     /**
@@ -228,26 +228,24 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
      */
     public function peek($count = 1)
     {
-        $lookaheadCount = max(
+        $charsToLookahead = max(
             0,
             $this->peekOffset + $count - $this->lookahead->count()
         );
 
-        if ($lookaheadCount > 0) {
-            for ($i = 0; !$this->streamReader->isEmpty() && $i < $lookaheadCount; ++$i) {
-                $this->lookahead->enqueue(
-                    $this->streamReader->readChar()
-                );
-            }
+        for ($i = 0; !$this->streamReader->isEmpty() && $i < $charsToLookahead; ++$i) {
+            $this->lookahead->enqueue(
+                $this->streamReader->readChar()
+            );
         }
 
-        $charactersToDequeue = min(
-            $this->lookahead->count(),
+        $peekCount = min(
+            $this->lookahead->count() - $this->peekOffset,
             $count
         );
 
         $chars = '';
-        for ($i = 0; $i < $charactersToDequeue; ++$i) {
+        for ($i = 0; $i < $peekCount; ++$i) {
             $char = $this->lookahead[$this->peekOffset + $i];
 
             if ($this->peekWasLineReturn) {
@@ -265,7 +263,7 @@ class PeekableStreamReaderDecorator extends AbstractStreamReader implements Peek
             $chars .= $char;
         }
 
-        $this->peekOffset += $charactersToDequeue;
+        $this->peekOffset += $peekCount;
 
         return $chars;
     }

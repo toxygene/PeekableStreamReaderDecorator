@@ -21,7 +21,7 @@ interface PeekableStreamReaderInterface extends StreamReaderInterface
     public function getPeekLineNumber();
 
     /**
-     * Check if there are no more characters available to peek at
+     * Check if there are any more characters available to peek at in the decorated stream
      *
      * @return boolean
      */

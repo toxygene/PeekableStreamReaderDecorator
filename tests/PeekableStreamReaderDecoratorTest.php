@@ -145,17 +145,27 @@ class PeekableStreamReaderDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->setStreamContents('0123456789');
 
         $this->assertEquals(
-            '0123456789',
+            '01234',
+            $this->reader->peek(5)
+        );
+
+        $this->assertFalse($this->reader->isEmpty());
+        $this->assertFalse($this->reader->isPeekEmpty());
+
+        $this->assertEquals(
+            '56789',
             $this->reader->peek(20)
         );
 
-        $this->assertFalse($this->reader->isPeekEmpty());
+        $this->assertFalse($this->reader->isEmpty());
+        $this->assertTrue($this->reader->isPeekEmpty());
 
         $this->assertEquals(
             '0123456789',
             $this->reader->readCharsToPeek()
         );
 
+        $this->assertTrue($this->reader->isEmpty());
         $this->assertTrue($this->reader->isPeekEmpty());
     }
 
